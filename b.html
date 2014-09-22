@@ -1,12 +1,94 @@
-<html>
+<html lang="en">
   <head>
+    <meta charset="utf-8">
+
+    <title>Dashboard Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/dashboard.css" rel="stylesheet">
+
+	  <script src="lib/jquery-1.11.1.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+    <!--<script src="lib/docs.min.js"></script>-->
+
+    <script src="user.js"></script>
+    <script src="mailinglists.js"></script>
     <script src="b.js"></script>
     <script src="menus.js"></script>
   </head>
+
   <body>
-    <h1>Window B</h1>
-    <p>Right click to see the context menu.</p>
-    <p>Log:</p>
-    <pre id="log"></pre>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">WPI<b>Pro</b></a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">Overview</a></li>
+            <li><a href="#">Reports</a></li>
+            <li><a href="#">Analytics</a></li>
+            <li><a href="#">Export</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">Nav item</a></li>
+            <li><a href="">Nav item again</a></li>
+            <li><a href="">One more nav</a></li>
+            <li><a href="">Another nav item</a></li>
+            <li><a href="">More navigation</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">Nav item again</a></li>
+            <li><a href="">One more nav</a></li>
+            <li><a href="">Another nav item</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">Dashboard</h1>
+          <div class="row">
+            <div class="input-group">
+              <input id="ml-name" placeholder="Mailing list" class="form-control" />
+              <div class="input-group-addon">@wpi.edu</div>
+            </div>
+            <button id="ml-load" class="btn btn-primary">Add Mailing List</button>
+          </div>
+          <div class="row">
+            <ul id="ml-list">
+            </ul>
+          </div>
+          <div class="row">
+            <textarea id="ml-body"></textarea>
+            <button id="ml-save" class="btn btn-primary">Save</button>
+          </div>
+        </div>
+      <pre id="log"></pre>
+      </div>
+    </div> 
   </body>
 </html>

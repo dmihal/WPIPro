@@ -1,8 +1,27 @@
-User = {
-  getUsername : function(){
-    return 'username';
-  },
-  getPassword : function(){
-    return 'password';
-  }
-};
+User = (function(){
+  var _username, _password;
+  var loaded = false;
+  chrome.storage.sync.get(['username','password'],function(results){
+    _username = results.username;
+    _password = results.password;
+    loaded = true;
+  });
+
+  var obj = {
+    getUsername : function(){
+      while (!loaded){}
+      return _username;
+    },
+    getPassword : function(){
+      while (!loaded){}
+      return _password;
+    },
+    setCredentials : function(username,password){
+      _username = username;
+      _password = password;
+      chrome.storage.sync.set({username: username, password: password});
+    }
+  };
+
+  return obj;
+})();

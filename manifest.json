@@ -9,9 +9,10 @@
   },
   "permissions": [
     "contextMenus",
+    "storage",
     "http://bannerweb.wpi.edu/",
     "https://bannerweb.wpi.edu/",
-	"https://cas.wpi.edu/",
-	"https://www.wpi.edu/"
+    "https://cas.wpi.edu/",
+    "https://www.wpi.edu/"
   ]
 }

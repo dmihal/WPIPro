@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "Context Menu Sample",
-  "version": "3",
+  "name": "WPIPro",
+  "version": "0.1",
   "app": {
     "background": {
       "scripts": ["menus.js", "main.js"]

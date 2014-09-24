@@ -18,7 +18,13 @@ window.addEventListener("load", function(e){
   log('Window B is loaded');
   setUpContextMenus("windowB");
 
-  mailingList();
+  User.hasCredentials(function(credentialsExist){
+    if (credentialsExist){
+      mailingList();
+    } else {
+      $('#cred-modal').modal('show');
+    }
+  });
 
   var list = null;
   $("#ml-load").click(function(){
@@ -33,6 +39,13 @@ window.addEventListener("load", function(e){
       var emails = $("#ml-body").val();
       saveMailingList(list,emails);
     }
+  });
+  $("#save-login").click(function(){
+    var username = $("#cred-user").val();
+    var password = $("#cred-pw").val();
+    User.setCredentials(username,password);
+    $('#cred-modal').modal('hide');
+    mailingList();
   });
 
 });

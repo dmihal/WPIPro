@@ -8,12 +8,17 @@ User = (function(){
   });
 
   var obj = {
+    hasCredentials : function(callback){
+      chrome.storage.sync.get(['username','password'],function(results){
+        _username = results.username;
+        _password = results.password;
+        callback(_username && _password);
+      });
+    },
     getUsername : function(){
-      while (!loaded){}
       return _username;
     },
     getPassword : function(){
-      while (!loaded){}
       return _password;
     },
     setCredentials : function(username,password){

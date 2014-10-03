@@ -1,3 +1,26 @@
+MailingLists = function(){
+  var MailingLists = function(){
+    this.connected = false;
+  };
+
+  MailingLists.prototype.connect = function(username, password){
+    simpleAjax({
+      url: 'https://www.wpi.edu/academics/CCC/Services/Email/mailinglist.html',
+      callback: function(){
+        if (this.responseURL.match("cas.wpi.edu")){
+          var lt = this.responseXML.querySelector("input[name=lt]").value;
+          var execution = this.responseXML.querySelector("input[name=execution]").value;
+          sendAuthentication(lt,execution);
+        } else {
+          verifyHP(this);
+        }
+      }
+    });
+  };
+
+  return new MailingLists();
+};
+
 function mailingList(){
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function(response){
@@ -57,7 +80,8 @@ function getMailingList(name,callback)
   xhr.open("GET", url, true);
   xhr.responseType = "document";
   xhr.send();
-}function saveMailingList(name,text,callback)
+}
+function saveMailingList(name,text,callback)
 {
   var url = "https://www.wpi.edu/cgi-bin/Pubcookie/MailingList";
   
@@ -76,4 +100,22 @@ function getMailingList(name,callback)
 
   xhr.send(payload);
 }
+function simpleAjax(options){
+  var method = options.method || "GET";
+  var callback = options.callback || function(){};
 
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function(response){
+    if (this.readyState == 4){
+      callback.call(this,response);
+    }
+  };
+
+  xhr.responseType = "document";
+  if (method === "POST"){
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  }
+  xhr.open(method, options.url, true);
+
+  xhr.send(options.payload);
+}

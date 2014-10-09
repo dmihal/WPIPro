@@ -4,6 +4,7 @@ MailingLists = function(){
   };
 
   MailingLists.prototype.connect = function(username, password){
+    var that = this;
     simpleAjax({
       url: 'https://www.wpi.edu/academics/CCC/Services/Email/mailinglist.html',
       callback: function(){
@@ -12,14 +13,44 @@ MailingLists = function(){
           var execution = this.responseXML.querySelector("input[name=execution]").value;
           sendAuthentication(lt,execution);
         } else {
-          verifyHP(this);
+          that.connected = true;
         }
       }
     });
   };
+  MailingLists.prototype.getMailingList = function(name, callback){
+    var list = new MailingList(this, name);
+    list.load(function(){
+      callback(this);
+    });
+  }
 
   return new MailingLists();
 };
+
+MailingList = (function(){
+  var MailingList = function(lists, name){
+    this._lists = lists;
+    this.name = name;
+    this.emails = [];
+    this.emailText = null;
+  }
+
+  MailingList.prototype.load = function(callback){
+    var that = this;
+    simpleAjax({
+      url: "https://www.wpi.edu/cgi-bin/Pubcookie/MailingList?ListName=" + this.name + "&Submit=Change",
+      callback: function(){
+        that.emailtext = this.responseXML.querySelector("textarea").value;
+        var emails = that.emailtext.split("\n")
+        that.emails = emails.filter(function(n){ return !!n });
+        callback.call(that, that.emailtext);
+      }
+    });
+  }
+
+  return MailingList;
+})();
 
 function mailingList(){
   var xhr = new XMLHttpRequest();
